@@ -6,11 +6,12 @@ import {
   FileText,
   LayoutDashboard,
   LogOut,
+  Settings,
+  User,
   Users,
 } from "lucide-react";
+import cworkLogo from "../assets/cwork-logo.png";
 import cworkWordmark from "../assets/cwork-wordmark.png";
-
-const BRAND_LOGO_SRC = "/589227240-cc58ea7b-fa1b-4602-8d6b-3ccdb9634683.png";
 
 const navItems = [
   { label: "Dashboard", icon: LayoutDashboard },
@@ -57,7 +58,7 @@ export default function Sidebar({
             <img
               alt="Logo CWork"
               className="relative h-full w-full object-contain p-0.5 transition duration-300 group-hover:scale-95 group-hover:saturate-150"
-              src={BRAND_LOGO_SRC}
+              src={cworkLogo}
             />
           </span>
 
@@ -144,6 +145,55 @@ export default function Sidebar({
       </nav>
 
       <div className="border-t border-slate-200 p-3">
+        <button
+          aria-current={activeItem === "Meu Perfil" ? "page" : undefined}
+          className={`mb-3 flex w-full items-center rounded-xl border text-left transition ${
+            isCollapsed ? "h-11 justify-center px-0" : "gap-3 p-2.5"
+          } ${
+            activeItem === "Meu Perfil"
+              ? "border-cyan-200 bg-cyan-50 text-slate-950 shadow-sm"
+              : "border-slate-200 bg-white text-slate-700 hover:border-cyan-200 hover:bg-cyan-50/60 hover:text-slate-950"
+          }`}
+          onClick={() => onSelectItem?.("Meu Perfil")}
+          title={isCollapsed ? "Meu Perfil" : undefined}
+          type="button"
+        >
+          <span
+            aria-hidden="true"
+            className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-sm font-bold ${
+              activeItem === "Meu Perfil"
+                ? "bg-slate-950 text-white"
+                : "bg-slate-100 text-slate-700"
+            }`}
+          >
+            <User className="h-4.5 w-4.5" />
+          </span>
+
+          {!isCollapsed ? (
+            <span className="min-w-0">
+              <span className="block truncate text-sm font-semibold">Meu Perfil</span>
+              <span className="block truncate text-xs text-slate-500">Conta pessoal</span>
+            </span>
+          ) : null}
+        </button>
+
+        <button
+          aria-current={activeItem === "Configurações" ? "page" : undefined}
+          className={`mb-1 flex h-11 w-full items-center rounded-md text-sm font-medium transition ${
+            isCollapsed ? "justify-center px-0" : "gap-3 px-3"
+          } ${
+            activeItem === "Configurações"
+              ? "bg-slate-950 text-white"
+              : "text-slate-600 hover:bg-slate-100 hover:text-slate-950"
+          }`}
+          onClick={() => onSelectItem?.("Configurações")}
+          title={isCollapsed ? "Configurações" : undefined}
+          type="button"
+        >
+          <Settings aria-hidden="true" className="h-5 w-5 shrink-0" />
+          {!isCollapsed ? <span>Configurações</span> : null}
+        </button>
+
         <button
           aria-label="Sair"
           className={`flex h-11 w-full items-center rounded-md text-sm font-medium text-slate-600 transition hover:bg-slate-100 hover:text-slate-950 ${

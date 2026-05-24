@@ -8,6 +8,7 @@ import {
   LogOut,
   Users,
 } from "lucide-react";
+import cworkWordmark from "../assets/cwork-wordmark.png";
 
 const BRAND_LOGO_SRC = "/589227240-cc58ea7b-fa1b-4602-8d6b-3ccdb9634683.png";
 
@@ -61,7 +62,13 @@ export default function Sidebar({
           </span>
 
           {!isCollapsed ? (
-            <span className="truncate text-lg font-bold text-slate-950">CWork</span>
+            <span className="flex h-9 max-w-36 items-center rounded-lg bg-[#0e1e33] px-3 shadow-sm">
+              <img
+                alt="CWork"
+                className="h-6 w-full object-contain"
+                src={cworkWordmark}
+              />
+            </span>
           ) : null}
         </button>
 

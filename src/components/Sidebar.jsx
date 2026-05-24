@@ -196,7 +196,7 @@ export default function Sidebar({
 
         <button
           aria-label="Sair"
-          className={`flex h-11 w-full items-center rounded-md text-sm font-medium text-slate-600 transition hover:bg-slate-100 hover:text-slate-950 ${
+          className={`flex h-11 w-full items-center rounded-md text-sm font-medium text-slate-600 transition hover:bg-red-50 hover:text-red-600 ${
             isCollapsed ? "justify-center px-0" : "gap-3 px-3"
           }`}
           onClick={onLogout}

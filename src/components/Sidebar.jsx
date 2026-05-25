@@ -16,6 +16,7 @@ import cworkLogo from "../assets/cwork-logo.png";
 import cworkWordmark from "../assets/cwork-wordmark.png";
 
 const brandBlue = "#0e1e33";
+const slideTransition = "transition-[max-width,opacity,transform] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]";
 
 const navItems = [
   { label: "Dashboard", icon: LayoutDashboard },
@@ -51,14 +52,16 @@ function Brand({ isCollapsed = false, onClick }) {
         />
       </span>
 
-      {!isCollapsed ? (
-        <span
-          className="flex h-9 max-w-36 items-center rounded-lg px-3 shadow-sm"
-          style={{ backgroundColor: brandBlue }}
-        >
-          <img alt="CWork" className="h-6 w-full object-contain" src={cworkWordmark} />
-        </span>
-      ) : null}
+      <span
+        className={`flex h-9 items-center overflow-hidden rounded-lg shadow-sm ${slideTransition} ${
+          isCollapsed
+            ? "pointer-events-none max-w-0 -translate-x-2 opacity-0 lg:px-0"
+            : "max-w-36 translate-x-0 px-3 opacity-100"
+        }`}
+        style={{ backgroundColor: brandBlue }}
+      >
+        <img alt="CWork" className="h-6 w-full min-w-24 object-contain" src={cworkWordmark} />
+      </span>
     </button>
   );
 }
@@ -115,7 +118,7 @@ export default function Sidebar({
 
       <aside
         aria-label="Barra lateral"
-        className={`fixed inset-y-0 left-0 z-40 flex w-72 flex-col border-r border-slate-200 bg-white text-slate-700 shadow-xl transition-transform duration-300 lg:sticky lg:top-0 lg:z-20 lg:h-screen lg:translate-x-0 lg:shadow-none ${
+        className={`fixed inset-y-0 left-0 z-40 flex w-72 transform-gpu flex-col overflow-hidden border-r border-slate-200 bg-white text-slate-700 shadow-xl transition-[transform,width] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] will-change-[transform,width] lg:sticky lg:top-0 lg:z-20 lg:h-screen lg:translate-x-0 lg:shadow-none ${
           isMobileOpen ? "translate-x-0" : "-translate-x-full"
         } ${isCollapsed ? "lg:w-20" : "lg:w-64"}`}
       >
@@ -166,8 +169,8 @@ export default function Sidebar({
               return (
                 <button
                   aria-current={isActive ? "page" : undefined}
-                  className={`group relative flex h-12 w-full items-center rounded-lg border text-sm font-semibold transition ${
-                    isCollapsed ? "lg:justify-center lg:px-0" : "gap-3 px-3.5"
+                  className={`group relative flex h-12 w-full items-center gap-3 rounded-lg border px-3.5 text-sm font-semibold transition duration-300 ${
+                    isCollapsed ? "lg:justify-center lg:px-2" : ""
                   } ${
                     isActive
                       ? "border-[#0e1e33] bg-[#0e1e33] text-white shadow-sm"
@@ -196,7 +199,15 @@ export default function Sidebar({
                     <Icon className="h-4.5 w-4.5" />
                   </span>
 
-                  {!isCollapsed ? <span className="truncate">{item.label}</span> : null}
+                  <span
+                    className={`overflow-hidden whitespace-nowrap ${slideTransition} ${
+                      isCollapsed
+                        ? "max-w-0 -translate-x-2 opacity-0 lg:ml-0"
+                        : "max-w-36 translate-x-0 opacity-100"
+                    }`}
+                  >
+                    {item.label}
+                  </span>
                 </button>
               );
             })}
@@ -206,8 +217,8 @@ export default function Sidebar({
         <div className="border-t border-slate-200 p-3">
           <button
             aria-current={activeItem === "Meu Perfil" ? "page" : undefined}
-            className={`group mb-3 flex w-full items-center rounded-xl border text-left transition ${
-              isCollapsed ? "h-11 justify-center px-0" : "gap-3 p-2.5"
+            className={`group mb-3 flex w-full items-center gap-3 rounded-xl border p-2.5 text-left transition duration-300 ${
+              isCollapsed ? "h-11 justify-center lg:px-1" : ""
             } ${
               activeItem === "Meu Perfil"
                 ? "border-[#0e1e33] bg-[#0e1e33] text-white shadow-sm"
@@ -228,26 +239,28 @@ export default function Sidebar({
               <User className="h-4.5 w-4.5" />
             </span>
 
-            {!isCollapsed ? (
-              <span className="min-w-0">
-                <span className="block truncate text-sm font-semibold">Meu Perfil</span>
-                <span
-                  className={`block truncate text-xs ${
-                    activeItem === "Meu Perfil"
-                      ? "text-white/70"
-                      : "text-slate-500 group-hover:text-slate-600"
-                  }`}
-                >
-                  Conta pessoal
-                </span>
+            <span
+              className={`min-w-0 overflow-hidden ${slideTransition} ${
+                isCollapsed ? "max-w-0 -translate-x-2 opacity-0" : "max-w-40 translate-x-0 opacity-100"
+              }`}
+            >
+              <span className="block truncate text-sm font-semibold">Meu Perfil</span>
+              <span
+                className={`block truncate text-xs ${
+                  activeItem === "Meu Perfil"
+                    ? "text-white/70"
+                    : "text-slate-500 group-hover:text-slate-600"
+                }`}
+              >
+                Conta pessoal
               </span>
-            ) : null}
+            </span>
           </button>
 
           <button
             aria-current={activeItem === "Configurações" ? "page" : undefined}
-            className={`mb-1 flex h-11 w-full items-center rounded-md text-sm font-medium transition ${
-              isCollapsed ? "justify-center px-0" : "gap-3 px-3"
+            className={`mb-1 flex h-11 w-full items-center gap-3 rounded-md px-3 text-sm font-medium transition duration-300 ${
+              isCollapsed ? "justify-center lg:px-2" : ""
             } ${
               activeItem === "Configurações"
                 ? "bg-[#0e1e33] text-white"
@@ -258,20 +271,32 @@ export default function Sidebar({
             type="button"
           >
             <Settings aria-hidden="true" className="h-5 w-5 shrink-0" />
-            {!isCollapsed ? <span>Configurações</span> : null}
+            <span
+              className={`overflow-hidden whitespace-nowrap ${slideTransition} ${
+                isCollapsed ? "max-w-0 -translate-x-2 opacity-0" : "max-w-36 translate-x-0 opacity-100"
+              }`}
+            >
+              Configurações
+            </span>
           </button>
 
           <button
             aria-label="Sair"
-            className={`flex h-11 w-full items-center rounded-md text-sm font-medium text-slate-600 transition hover:bg-red-50 hover:text-red-600 ${
-              isCollapsed ? "justify-center px-0" : "gap-3 px-3"
+            className={`flex h-11 w-full items-center gap-3 rounded-md px-3 text-sm font-medium text-slate-600 transition duration-300 hover:bg-red-50 hover:text-red-600 ${
+              isCollapsed ? "justify-center lg:px-2" : ""
             }`}
             onClick={handleLogout}
             title={isCollapsed ? "Sair" : undefined}
             type="button"
           >
             <LogOut aria-hidden="true" className="h-5 w-5 shrink-0" />
-            {!isCollapsed ? <span>Sair</span> : null}
+            <span
+              className={`overflow-hidden whitespace-nowrap ${slideTransition} ${
+                isCollapsed ? "max-w-0 -translate-x-2 opacity-0" : "max-w-20 translate-x-0 opacity-100"
+              }`}
+            >
+              Sair
+            </span>
           </button>
         </div>
       </aside>

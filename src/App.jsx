@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Dashboard from "./components/Dashboard.jsx";
+import Empresas from "./components/Empresas.jsx";
 import Sidebar from "./components/Sidebar.jsx";
 
 export default function App() {
@@ -20,9 +21,9 @@ export default function App() {
       />
 
       <main className="flex-1 px-4 py-6 sm:px-6 lg:px-8 lg:py-10">
-        {activeItem === "Dashboard" ? (
-          <Dashboard />
-        ) : (
+        {activeItem === "Dashboard" && <Dashboard />}
+        {activeItem === "Empresas" && <Empresas />}
+        {activeItem !== "Dashboard" && activeItem !== "Empresas" && (
           <section>
             <h1 className="text-3xl font-bold text-slate-950">{activeItem}</h1>
             <p className="mt-3 max-w-2xl text-slate-600">

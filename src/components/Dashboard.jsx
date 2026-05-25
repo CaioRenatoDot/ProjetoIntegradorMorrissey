@@ -44,6 +44,7 @@ const metrics = [
   },
 ];
 
+// Dados usados pelos graficos do Dashboard.
 const monthlyOpportunities = [
   { month: "Jan", oportunidades: 8 },
   { month: "Fev", oportunidades: 12 },
@@ -59,6 +60,7 @@ const clientStatus = [
   { label: "Proposta enviada", value: 20, color: "#94a3b8" },
 ];
 
+// Listas exibidas nos cards inferiores da tela.
 const activities = [
   "Retornar contato da empresa NovaTech",
   "Enviar proposta para Mercado Alves",
@@ -86,6 +88,7 @@ export default function Dashboard() {
       </section>
 
       <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+        {/* Cada card usa o icone definido no array de metricas. */}
         {metrics.map((metric) => {
           const Icon = metric.icon;
 
@@ -124,6 +127,7 @@ export default function Dashboard() {
           </div>
 
           <div className="mt-6 h-56 sm:h-64">
+            {/* ResponsiveContainer faz o grafico ocupar todo o espaco disponivel. */}
             <ResponsiveContainer height="100%" width="100%">
               <BarChart data={monthlyOpportunities}>
                 <CartesianGrid stroke="#e2e8f0" strokeDasharray="3 3" vertical={false} />
@@ -167,6 +171,7 @@ export default function Dashboard() {
           <p className="mt-1 text-sm text-slate-500">Distribuição atual da carteira</p>
 
           <div className="mt-6 h-48 sm:h-52">
+            {/* Grafico de rosca para visualizar a distribuicao da carteira. */}
             <ResponsiveContainer height="100%" width="100%">
               <PieChart>
                 <Pie
